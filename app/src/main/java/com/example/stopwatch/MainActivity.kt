@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var reset : Button
     lateinit var stopWatch : Chronometer
     var x = false
-    var time = 0
+    var t = 0
     companion object{
         val TAG = "MainActivity"
     }
@@ -34,19 +34,19 @@ class MainActivity : AppCompatActivity() {
 
             if(!x)
             {
-                stopWatch.base = SystemClock.elapsedRealtime() + time
+                stopWatch.base = SystemClock.elapsedRealtime() + t
                 stopWatch.start()
                 x = true
             }
             else{
                 stopWatch.stop()
                 x = false
-                time = (stopWatch.base - SystemClock.elapsedRealtime()).toInt()
+                t = (stopWatch.base - SystemClock.elapsedRealtime()).toInt()
             }
         }
         reset.setOnClickListener {
             stopWatch.base = SystemClock.elapsedRealtime()
-            time = 0
+            t = 0
         }
 
 
