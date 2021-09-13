@@ -28,31 +28,43 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
         super.onCreate(savedInstanceState, persistentState)
         Log.d(TAG, "onCreate: ")
+        Log.e()
     }
 
     override fun onRestart() {
         super.onRestart()
+        Log.d(TAG, "onRestart: ")
+        Log.e()
     }
 
     override fun onStart() {
         super.onStart()
+        Log.d(TAG, "onStart: ")
+        Log.e()
     }
 
     override fun onResume() {
         super.onResume()
+        Log.d(TAG, "onResume: ")
+        Log.e()
     }
 
     override fun onPause() {
         super.onPause()
         Log.d(TAG, "onPause: ")
+        Log.e()
     }
 
     override fun onStop() {
         super.onStop()
+        Log.d(TAG, "onStop: ")
+        Log.e()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "onDestroy: ")
+        Log.e()
     }
 
 
