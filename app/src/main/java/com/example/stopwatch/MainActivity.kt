@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             if(!on)
             {
-                stopWatch.base = SystemClock.elapsedRealtime() + t
+                stopWatch.base = abs(SystemClock.elapsedRealtime() + t)
                 stopWatch.start()
                 on = true
                 start.text = "Stop"
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         reset.setOnClickListener {
-            stopWatch.base = SystemClock.elapsedRealtime()
+            stopWatch.base = abs(SystemClock.elapsedRealtime())
 
         }
 
