@@ -11,13 +11,14 @@ import android.widget.Button
 import android.widget.Chronometer
 import com.google.android.material.tabs.TabLayout
 import kotlin.concurrent.timer
+import kotlin.math.abs
 
 class MainActivity : AppCompatActivity() {
     lateinit var start : Button
     lateinit var reset : Button
     lateinit var stopWatch : Chronometer
     var on = false
-    var t = 0
+    var t = 0L
     companion object{
         val TAG = "MainActivity"
     }
@@ -43,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             else{
                 stopWatch.stop()
                 on = false
-                t = (stopWatch.base - SystemClock.elapsedRealtime()).toInt()
+                t = abs(stopWatch.base - SystemClock.elapsedRealtime())
                 start.text = "Start"
             }
         }
@@ -60,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         if(on){
-            t = (SystemClock.elapsedRealtime() - stopWatch.base).toInt()
+            t = abs((SystemClock.elapsedRealtime() - stopWatch.base))
         }
         outState.putLong("saveTime", t.toLong())
         outState.putBoolean("saveOn", on)
@@ -68,9 +69,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        t = savedInstanceState.getLong("saveTime").toInt()
+        t = savedInstanceState.getLong("saveTime")
         on = savedInstanceState.getBoolean("saveOn")
-        stopWatch.base = SystemClock.elapsedRealtime() - t
+        stopWatch.base = abs(SystemClock.elapsedRealtime() - t)
         if(on) {
             stopWatch.start()
             start.text = "Stop"
