@@ -63,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         if(on){
             t = abs((SystemClock.elapsedRealtime() - stopWatch.base))
         }
-        outState.putLong("saveTime", t.toLong())
+        outState.putLong("saveTime", t)
         outState.putBoolean("saveOn", on)
     }
 
