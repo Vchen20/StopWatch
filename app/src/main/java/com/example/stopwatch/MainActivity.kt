@@ -10,12 +10,13 @@ import android.util.Log
 import android.widget.Button
 import android.widget.Chronometer
 import com.google.android.material.tabs.TabLayout
+import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
     lateinit var start : Button
     lateinit var reset : Button
     lateinit var stopWatch : Chronometer
-    var x = false
+    var on = false
     var t = 0
     companion object{
         val TAG = "MainActivity"
@@ -32,25 +33,49 @@ class MainActivity : AppCompatActivity() {
         wireWidgets()
         start.setOnClickListener {
 
-            if(!x)
+            if(!on)
             {
                 stopWatch.base = SystemClock.elapsedRealtime() + t
                 stopWatch.start()
-                x = true
+                on = true
+                start.text = "Stop"
             }
             else{
                 stopWatch.stop()
-                x = false
+                on = false
                 t = (stopWatch.base - SystemClock.elapsedRealtime()).toInt()
+                start.text = "Start"
             }
         }
         reset.setOnClickListener {
             stopWatch.base = SystemClock.elapsedRealtime()
-            t = 0
+
         }
 
 
 
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if(on){
+            t = (SystemClock.elapsedRealtime() - stopWatch.base).toInt()
+        }
+        outState.putLong("saveTime", t.toLong())
+        outState.putBoolean("saveOn", on)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        t = savedInstanceState.getLong("saveTime").toInt()
+        on = savedInstanceState.getBoolean("saveOn")
+        stopWatch.base = SystemClock.elapsedRealtime() - t
+        if(on) {
+            stopWatch.start()
+            start.text = "Stop"
+
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
@@ -66,6 +91,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         Log.d(TAG, "onStart: ")
+        wireWidgets()
     }
 
     override fun onResume() {
