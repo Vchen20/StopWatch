@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
         reset.setOnClickListener {
-            stopWatch.base = abs(SystemClock.elapsedRealtime())
-
+            stopWatch.base = SystemClock.elapsedRealtime()
+            t = 0
         }
 
 
