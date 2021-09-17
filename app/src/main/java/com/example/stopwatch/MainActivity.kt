@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
             if(!on)
             {
-                stopWatch.base = abs(SystemClock.elapsedRealtime() + t)
+                stopWatch.base = abs(SystemClock.elapsedRealtime() - t)
                 stopWatch.start()
                 on = true
                 start.text = "Stop"
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             else{
                 stopWatch.stop()
                 on = false
-                t = abs(stopWatch.base - SystemClock.elapsedRealtime())
+                t = abs(SystemClock.elapsedRealtime() - stopWatch.base)
                 start.text = "Start"
             }
         }
